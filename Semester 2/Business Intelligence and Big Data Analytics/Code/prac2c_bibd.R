@@ -1,0 +1,10 @@
+library(textreuse)
+minhash <- minhash_generator(200,seed=235)
+ats <- TextReuseCorpus(dir="E://Semester 2//Business Intelligence and Big Data Analytics//input files//prac2c",tokenizer=tokenize_ngrams,n=5,minhash_func=minhash)
+buckets <-lsh(ats,bands=50,progress=interactive())
+candidates <- lsh_candidates(buckets)
+scores <- lsh_compare(candidates,ats,jaccard_similarity,progress=FALSE)
+print(scores)
+color <- c("red","green","blue","orange","yellow","pink")
+barplot(as.matrix(scores),col=color)
+
